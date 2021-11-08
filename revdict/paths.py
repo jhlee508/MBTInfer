@@ -11,7 +11,7 @@ SAVED_DIR = path.join(DATA_DIR, "saved")
 
 
 # the files.
-REVDICT_DATASET_TSV = path.join(DATA_DIR, "revdict_dataset_ver2.tsv")
+REVDICT_DATASET_TSV = path.join(DATA_DIR, "explaintome_mbti_dataset.tsv")
 
 
 # the models
