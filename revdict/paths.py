@@ -15,6 +15,6 @@ REVDICT_DATASET_TSV = path.join(DATA_DIR, "explaintome_mbti_dataset.tsv")
 
 
 # the models
-MONO_EN_CKPT = path.join(DATA_DIR, "lightning_logs/version_1/checkpoints/mono_en_epoch=05_train_loss=0.00.ckpt") ### Change Checkpoint file
+MONO_EN_CKPT = path.join(DATA_DIR, "lightning_logs/version_0/checkpoints/mono_en_epoch=10_train_loss=0.70.ckpt") ### Change Checkpoint file
 CROSS_CKPT = path.join(DATA_DIR, "lightning_logs/version_0/checkpoints/cross_epoch=27_train_loss=0.64.ckpt")
 

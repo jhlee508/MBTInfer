@@ -17,18 +17,17 @@ def main():
     parser.add_argument("--rd_mode", type=str,
                         default="mono_en")
     parser.add_argument("--desc", type=str,
-                        default="The fruit that monkeys love")
+                        default="someone tend to be reserved, practical and quiet") # ISTJ
     args = parser.parse_args()
     rd_mode: str = args.rd_mode
     desc: str = args.desc
 
-    device = "cpu" ### RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu!
-    # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     if rd_mode == "mono_en":
         bert_mlm = BertForMaskedLM.from_pretrained(BERT_MODEL)
         tokenizer = BertTokenizer.from_pretrained(BERT_MODEL)
-        word2subs = build_word2subs(tokenizer, k=3, mode=rd_mode)  # this is something I don't really like...
+        word2subs = build_word2subs(tokenizer, k=3, mode=rd_mode).to(device)
         rd = ReverseDict.load_from_checkpoint(MONO_EN_CKPT, bert_mlm=bert_mlm, word2subs=word2subs)
         rd.eval()  # this is necessary
         rd = rd.to(device)
@@ -36,7 +35,7 @@ def main():
     elif rd_mode == "cross":
         mbert_mlm = BertForMaskedLM.from_pretrained(MBERT_MODEL)
         tokenizer = BertTokenizer.from_pretrained(MBERT_MODEL)
-        word2subs = build_word2subs(tokenizer, k=10, mode=rd_mode)  # this is something I don't really like...
+        word2subs = build_word2subs(tokenizer, k=10, mode=rd_mode).to(device)
         rd = ReverseDict.load_from_checkpoint(CROSS_CKPT, bert_mlm=mbert_mlm, word2subs=word2subs)
         rd.eval()  # this is necessary
         rd = rd.to(device)
